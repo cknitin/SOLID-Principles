@@ -179,6 +179,126 @@ Solutions
 Clients should not be forced to implement interfaces they don't use. Instead of one fat interface many small interfaces are preferred 
 based on groups of methods, each one serving one sub module.
 
+Problem
+
+
+     Interface ISavingAccount  
+     {  
+        //Other method and property and code  
+        bool Withdrwal(decimal amount);  
+     }  
+
+     Public Class RegularSavingAccount : ISavingAccount  
+     {  
+       //Other method and property and code related to Regular Saving account  
+        Public bool Withdrwal ()  
+       {  
+         Decimal moneyAfterWithdrawal = Balance-amount;  
+         if(moneyAfterWithdrawal >= 1000)  
+         {  
+            //update balace   
+            return true;  
+         }  
+        else  
+          return false;  
+       }  
+     }  
+
+     Public Class SalarySavingAccount : ISavingAccount  
+     {  
+       //Other method and property and code related to Salary Saving account`  
+        Public bool Withdrwal ()  
+       {  
+         Decimal moneyAfterWithdrawal = Balance-amount;  
+         if(moneyAfterWithdrawal >= 0)  
+         {  
+            //update balace   
+            return true;  
+         }  
+         else  
+            return false;  
+       }  
+     }  
+
+     Public Class FixDepositSavingAccount : ISavingAccount  
+     {  
+       //Other method and property and code related to Salary Saving account`  
+        Public bool Withdrwal ()  
+        {  
+          Throw New Excpetion("Not supported by this account type");  
+        }  
+     }
+     
+     Public class AccountManager  
+     {  
+       Public bool WithdrawFromAccount(IsavingAccount account)  
+       {  
+         account.Withdraw(amount);  
+       }  
+     }
+     
+     //works ok  
+     AccountManager.WidhdrawFromAccount(new RegularSavingAccount());  
+     //works ok  
+     AccountManager.WidhdrawFromAccount(new SalarySavingAccount());  
+     //throws exception as withdrawal is not supported  
+     AccountManager.WidhdrawFromAccount(new FixDepositSavingAccount());
+     
+Solution
+
+     Interface ISavingAccount  
+     {
+     
+     }  
+
+     Public Class SavingAccountWithWithdrawal : ISavingAccount  
+     {  
+         Public virtual bool Withdrwal () {}  
+     }  
+
+     Public Class SavingAccountWithoutWithdrawal : ISavingAccount  
+     {  
+
+     }  
+
+     Public Class RegularSavingAccount : SavingAccountWithWithdrawal  
+     {   
+
+       Public bool Withdrwal ()  
+       { 
+          //implementation  
+       }  
+     }  
+
+     Public Class SalarySavingAccount : SavingAccountWithWithdrawal  
+     {   
+       Public bool Withdrwal ()  
+       {//implementation  
+       }  
+     }  
+
+     Public Class FixDepositSavingAccount : SavingAccountWithoutWithdrawal  
+     {  
+
+     }
+     
+     Public class AccountManager  
+     {  
+
+        Public bool WithdrawFromAccount(SavingAccountWithWithdrawal account)  
+        {  
+           account.Withdraw(amount);  
+        }  
+     }
+     
+     //works ok  
+     AccountManager.WidhdrawFromAccount(new RegularSavingAccount());  
+     //works ok  
+     AccountManager.WidhdrawFromAccount(new SalarySavingAccount());  
+     //compiler gives error   
+     AccountManager.WidhdrawFromAccount(new FixDepositSavingAccount());
+
+
 # DIP (Dependency Injection/Inversion)
 High-level modules/classes should not depend upon low-level modules/classes. Both should depend upon abstractions. Secondly, 
 abstractions should not depend upon details. Details should depend upon abstractions.
