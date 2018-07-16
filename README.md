@@ -113,6 +113,68 @@ The Liskov Substitution Principle (LSP) states that "you should be able to use a
 behave in the same manner without modification". It ensures that a derived class does not affect the behavior of the parent class, 
 in other words that a derived class must be substitutable for its base class
 
+Problem
+
+     public abstract class Employee
+     {
+         public virtual string GetProjectDetails(int employeeId)
+         {
+             return "Base Project";
+         }
+         public virtual string GetEmployeeDetails(int employeeId)
+         {
+             return "Base Employee";
+         }
+     }
+     public class CasualEmployee : Employee
+     {
+         public override string GetProjectDetails(int employeeId)
+         {
+             return "Child Project";
+         }
+         // May be for contractual employee we do not need to store the details into database.
+         public override string GetEmployeeDetails(int employeeId)
+         {
+             return "Child Employee";
+         }
+     }
+     public class ContractualEmployee : Employee
+     {
+         public override string GetProjectDetails(int employeeId)
+         {
+             return "Child Project";
+         }
+         // May be for contractual employee we do not need to store the details into database.
+         public override string GetEmployeeDetails(int employeeId)
+         {
+             throw new NotImplementedException();
+         }
+     }
+     
+     List<Employee> employeeList = new List<Employee>();
+     employeeList.Add(new ContractualEmployee());
+     employeeList.Add(new CasualEmployee());
+     foreach (Employee e in employeeList)
+     {
+         e.GetEmployeeDetails(1245);
+     }
+     
+     
+Solutions
+
+     public interface IEmployee
+     {
+         string GetEmployeeDetails(int employeeId);
+     }
+
+     public interface IProject
+     {
+         string GetProjectDetails(int employeeId);
+     }
+
+
+
+
 # ISP (Interface Segregation Principle)
 Clients should not be forced to implement interfaces they don't use. Instead of one fat interface many small interfaces are preferred 
 based on groups of methods, each one serving one sub module.
