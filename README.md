@@ -1,5 +1,5 @@
 # SRP (Single Responsibility Principle)
-Aingle responsibility state that a class should have one, and only one, reason to change.
+Single responsibility state that a class should have one, and only one, reason to change.
      
 # OCP (Open-Closed Principle)
 Open close principle state that a software module/class is open for extension and closed for modification
