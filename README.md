@@ -64,7 +64,62 @@ Looks fine, but it is not following SRP. The SendEmail and ValidateEmail methods
      
 # OCP (Open-Closed Principle)
 Open close principle state that a software module/class is open for extension and closed for modification
-      
+
+     Public class SavingAccount  
+     {  
+         //Other method and property and code  
+         Public decimal CalculateInterest(AccountType accountType)  
+         {  
+             If(AccountType=="Regular")  
+             {  
+                 //Calculate interest for regular saving account based on rules and   
+                 // regulation of bank  
+                Interest = balance * 0.4;  
+                 If(balance < 1000) interest -= balance * 0.2;  
+                 If(balance < 50000) interest += amount * 0.4;  
+             }  
+             else if(AccountType=="Salary")  
+             {  
+                 //Calculate interest for saving account based on rules and regulation of   
+                 //bank  
+                 Interest = balance * 0.5;  
+             }  
+         }  
+     }
+     
+ Solution
+ 
+     Interface ISavingAccount  
+     {  
+        //Other method and property and code  
+        decimal CalculateInterest();  
+     }  
+
+     Public Class RegularSavingAccount : ISavingAccount  
+     {  
+       //Other method and property and code related to Regular Saving account  
+       Public decimal CalculateInterest()  
+       {  
+         //Calculate interest for regular saving account based on rules and   
+         // regulation of bank  
+         Interest = balance * 0.4;  
+         If(balance < 1000) interest -= balance * 0.2;  
+         If(balance < 50000) interest += amount * 0.4;  
+       }  
+     }  
+
+     Public Class SalarySavingAccount : ISavingAccount  
+     {  
+       //Other method and property and code related to Salary Saving account`  
+       Public decimal CalculateInterest()  
+       {  
+         //Calculate interest for saving account based on rules and regulation of   
+         //bank  
+         Interest = balance * 0.5;  
+       }  
+     }
+    
+          
 # LSP (Liskov's Substitution Principle)
 The Liskov Substitution Principle (LSP) states that "you should be able to use any derived class instead of a parent class and have it 
 behave in the same manner without modification". It ensures that a derived class does not affect the behavior of the parent class, 
