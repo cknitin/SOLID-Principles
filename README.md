@@ -412,4 +412,6 @@ Method Injection
      }
 
 
+For more detils follow
 
+https://www.codeproject.com/Tips/1033646/SOLID-Principle-with-Csharp-Example
