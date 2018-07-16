@@ -1,8 +1,8 @@
 # SRP (Single Responsibility Principle)
-A class should have one, and only one, reason to change.
+Aingle responsibility state that a class should have one, and only one, reason to change.
      
-# OCP (Open-Closed Principle): 
-A software module/class is open for extension and closed for modification
+# OCP (Open-Closed Principle)
+Open close principle state that a software module/class is open for extension and closed for modification
       
 # LSP (Liskov's Substitution Principle)
 The Liskov Substitution Principle (LSP) states that "you should be able to use any derived class instead of a parent class and have it 
