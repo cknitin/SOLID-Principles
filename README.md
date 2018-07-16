@@ -302,3 +302,114 @@ Solution
 # DIP (Dependency Injection/Inversion)
 High-level modules/classes should not depend upon low-level modules/classes. Both should depend upon abstractions. Secondly, 
 abstractions should not depend upon details. Details should depend upon abstractions.
+
+     public class Email
+     {
+         public void SendEmail()
+         {
+             // code to send mail
+         }
+     }
+
+     public class Notification
+     {
+         private Email _email;
+         public Notification()
+         {
+             _email = new Email();
+         }
+
+         public void PromotionalNotification()
+         {
+             _email.SendEmail();
+         }
+     }
+     
+Now Notification class totally depends on Email class, because it only sends one type of notification. If we want to introduce any other like SMS then? We need to change the notification system also. And this is called tightly coupled. What can we do to make it loosely coupled? Ok, check the following implementation.
+
+     public interface IMessenger
+     {
+         void SendMessage();
+     }
+     public class Email : IMessenger
+     {
+         public void SendMessage()
+         {
+             // code to send email
+         }
+     }
+
+     public class SMS : IMessenger
+     {
+         public void SendMessage()
+         {
+             // code to send SMS
+         }
+     }
+     public class Notification
+     {
+         private IMessenger _iMessenger;
+         public Notification()
+         {
+             _ iMessenger = new Email();
+         }
+         public void DoNotify()
+         {
+             _ iMessenger.SendMessage();
+         }
+     }
+     
+Still Notification class depends on Email class. Now, we can use dependency injection so that we can make it loosely coupled. 
+There are 3 types to DI, Constructor injection, Property injection and method injection.   
+
+Constructor Injection
+
+     public class Notification
+     {
+         private IMessenger _iMessenger;
+         public Notification(Imessenger pMessenger)
+         {
+             _ iMessenger = pMessenger;
+         }
+         public void DoNotify()
+         {
+             _ iMessenger.SendMessage();
+         }
+     }
+
+Property Injection
+     
+     public class Notification
+     {
+         private IMessenger _iMessenger;
+
+         public Notification()
+         {
+         }
+         public IMessenger MessageService
+         {
+            private get;
+            set
+            {
+                _ iMessenger = value;
+            }
+          }
+
+         public void DoNotify()
+         {
+             _ iMessenger.SendMessage();
+         }
+     }
+
+Method Injection
+
+     public class Notification
+     {
+         public void DoNotify(IMessenger pMessenger)
+         {
+             pMessenger.SendMessage();
+         }
+     }
+
+
+
