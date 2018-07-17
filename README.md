@@ -1,3 +1,17 @@
+# SOLID
+Set of principle given by Robert.C.Martin. 
+Allows building SOLID software system.
+SOLID principles are related with the design and maintenance of software system
+
+SOLID software system means its allows to build system that is
+
+Easy to maintain
+Easy to extend
+Easy to understand
+Easy to implement
+Easy to explain
+
+
 # SRP (Single Responsibility Principle)
 Single responsibility state that a class should have one, and only one, reason to change.
 
