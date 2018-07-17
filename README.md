@@ -15,31 +15,19 @@ Easy to explain
 # SRP (Single Responsibility Principle)
 Single responsibility state that a class should have one, and only one, reason to change.
 
-     namespace SRP
+     public class Employee
      {
-         public class Employee
-         {
-             public int Employee_Id { get; set; }
-             public string Employee_Name { get; set; }
+         public int Employee_Id { get; set; }
+         public string Employee_Name { get; set; }
 
-             /// <summary>
-             /// This method used to insert into employee table
-             /// </summary>
-             /// <param name="em">Employee object</param>
-             /// <returns>Successfully inserted or not</returns>
-             public bool InsertIntoEmployeeTable(Employee em)
-             {
-                 // Insert into employee table.
-                 return true;
-             }
-             /// <summary>
-             /// Method to generate report
-             /// </summary>
-             /// <param name="em"></param>
-             public void GenerateReport(Employee em)
-             {
-                 // Report generation with employee data using crystal report.
-             }
+         public bool InsertIntoEmployeeTable(Employee em)
+         {
+		 	 // Write your code here
+             return true;
+         }
+         public void GenerateReport(Employee em)
+         {
+             // Report generation with employee data using crystal report.
          }
      }
      
@@ -47,17 +35,25 @@ Single responsibility state that a class should have one, and only one, reason t
 Solution# 
 
 
+     public class Employee
+     {
+           public int Employee_Id { get; set; }
+           public string Employee_Name { get; set; }
+
+           public bool InsertIntoEmployeeTable(Employee em)
+           {
+                // Write your code here
+              return true;
+           }
+     }
+ 
      public class ReportGeneration
      {
-          /// <summary>
-          /// Method to generate report
-          /// </summary>
-          /// <param name="em"></param>
-          public void GenerateReport(Employee em)
-          {
-              // Report reneration with employee data.
-          }
-     }  
+           public void GenerateReport(Employee em)
+           {
+                // Report reneration with employee data.
+           }
+     }
 
      
 # OCP (Open-Closed Principle)
