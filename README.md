@@ -76,7 +76,29 @@ Open close principle state that a software module/class is open for extension an
      
  Solution
  
-         
+	public class IReportGeneration
+	{
+	    public virtual void GenerateReport(Employee em)
+	    {
+		// From base
+	    }
+	}
+
+	public class CrystalReportGeneraion : IReportGeneration
+	{
+	    public override void GenerateReport(Employee em)
+	    {
+		// Generate crystal report.
+	    }
+	}
+
+	public class PDFReportGeneraion : IReportGeneration
+	{
+	    public override void GenerateReport(Employee em)
+	    {
+		// Generate PDF report.
+	    }
+	}			
     
           
 # LSP (Liskov's Substitution Principle)
@@ -85,39 +107,49 @@ behave in the same manner without modification". It ensures that a derived class
 in other words that a derived class must be substitutable for its base class
 
 Problem
+	public abstract class Employee
+	{
+	    public virtual string GetProjectDetails(int employeeId)
+	    {
+		return "Base Project";
+	    }
+	    public virtual string GetEmployeeDetails(int employeeId)
+	    {
+		return "Base Employee";
+	    }
+	}
+	public class CasualEmployee : Employee
+	{
+	    public override string GetProjectDetails(int employeeId)
+	    {
+		return "Child Project";
+	    }
+	    // May be for contractual employee we do not need to store the details into database.
+	    public override string GetEmployeeDetails(int employeeId)
+	    {
+		return "Child Employee";
+	    }
+	}
+	public class ContractualEmployee : Employee
+	{
+	    public override string GetProjectDetails(int employeeId)
+	    {
+		return "Child Project";
+	    }
+	    // May be for contractual employee we do not need to store the details into database.
+	    public override string GetEmployeeDetails(int employeeId)
+	    {
+		throw new NotImplementedException();
+	    }
+	}
 
-	public class IReportGeneration
-        {
-        	public virtual void GenerateReport(Employee em)
-             	{
-                	 // From base
-             	}
-        }
-         
-	public class CrystalReportGeneraion : IReportGeneration
-        {
-        	public override void GenerateReport(Employee em)
-             	{
-                	 // Generate crystal report.
-             	}
-       }
-         
-       public class PDFReportGeneraion : IReportGeneration
-       {
-       		public override void GenerateReport(Employee em)
-             	{
-                	 // Generate PDF report.
-             	}
-      }		
-     
-     List<Employee> employeeList = new List<Employee>();
-     employeeList.Add(new ContractualEmployee());
-     employeeList.Add(new CasualEmployee());
-     foreach (Employee e in employeeList)
-     {
-     	e.GetEmployeeDetails(1245);
-     }
-     
+	List<Employee> employeeList = new List<Employee>();
+	employeeList.Add(new ContractualEmployee());
+	employeeList.Add(new CasualEmployee());
+	foreach (Employee e in employeeList)
+	{
+	    e.GetEmployeeDetails(1245);
+	}
      
 Solutions
 
