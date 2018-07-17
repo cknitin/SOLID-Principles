@@ -107,6 +107,7 @@ behave in the same manner without modification". It ensures that a derived class
 in other words that a derived class must be substitutable for its base class
 
 Problem
+		
 		public abstract class Employee
 		{
 		    public virtual string GetProjectDetails(int employeeId)
