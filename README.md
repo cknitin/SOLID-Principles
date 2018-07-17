@@ -59,63 +59,24 @@ Solution#
 # OCP (Open-Closed Principle)
 Open close principle state that a software module/class is open for extension and closed for modification
 
-     public class ReportGeneration
-     {
-         /// <summary>
-         /// Report type
-         /// </summary>
-         public string ReportType { get; set; }
-
-         /// <summary>
-         /// Method to generate report
-         /// </summary>
-         /// <param name="em"></param>
-         public void GenerateReport(Employee em)
-         {
-             if (ReportType == "CRS")
-             {
-                  // Report generation with employee data in Crystal Report.
-             }
-             if (ReportType == "PDF")
-             {
-                 // Report generation with employee data in PDF.
-             }
-          }
+      public class ReportGeneration
+      {
+	     public void GenerateReport(Employee em)
+	     {
+		 if (ReportType == "CRS")
+		 {
+		      // Report generation with employee data in Crystal Report.
+		 }
+		 if (ReportType == "PDF")
+		 {
+		     // Report generation with employee data in PDF.
+		 }
+	      }
       }
      
  Solution
  
-         public class IReportGeneration
-         {
-             /// <summary>
-             /// Method to generate report
-             /// </summary>
-             /// <param name="em"></param>
-             public virtual void GenerateReport(Employee em)
-             {
-                 // From base
-             }
-         }
-         /// <summary>
-         /// Class to generate Crystal report
-         /// </summary>
-         public class CrystalReportGeneraion : IReportGeneration
-         {
-             public override void GenerateReport(Employee em)
-             {
-                 // Generate crystal report.
-             }
-         }
-         /// <summary>
-         /// Class to generate PDF report
-         /// </summary>
-         public class PDFReportGeneraion : IReportGeneration
-         {
-             public override void GenerateReport(Employee em)
-             {
-                 // Generate PDF report.
-             }
-         }
+         
     
           
 # LSP (Liskov's Substitution Principle)
@@ -125,49 +86,37 @@ in other words that a derived class must be substitutable for its base class
 
 Problem
 
-     public abstract class Employee
-     {
-         public virtual string GetProjectDetails(int employeeId)
+     	 public class IReportGeneration
          {
-             return "Base Project";
+             public virtual void GenerateReport(Employee em)
+             {
+                 // From base
+             }
          }
-         public virtual string GetEmployeeDetails(int employeeId)
+         
+	 public class CrystalReportGeneraion : IReportGeneration
          {
-             return "Base Employee";
+             public override void GenerateReport(Employee em)
+             {
+                 // Generate crystal report.
+             }
          }
-     }
-     public class CasualEmployee : Employee
-     {
-         public override string GetProjectDetails(int employeeId)
+         
+	 public class PDFReportGeneraion : IReportGeneration
          {
-             return "Child Project";
-         }
-         // May be for contractual employee we do not need to store the details into database.
-         public override string GetEmployeeDetails(int employeeId)
-         {
-             return "Child Employee";
-         }
-     }
-     public class ContractualEmployee : Employee
-     {
-         public override string GetProjectDetails(int employeeId)
-         {
-             return "Child Project";
-         }
-         // May be for contractual employee we do not need to store the details into database.
-         public override string GetEmployeeDetails(int employeeId)
-         {
-             throw new NotImplementedException();
-         }
-     }
+             public override void GenerateReport(Employee em)
+             {
+                 // Generate PDF report.
+             }
+         }		
      
-     List<Employee> employeeList = new List<Employee>();
-     employeeList.Add(new ContractualEmployee());
-     employeeList.Add(new CasualEmployee());
-     foreach (Employee e in employeeList)
-     {
-         e.GetEmployeeDetails(1245);
-     }
+	 List<Employee> employeeList = new List<Employee>();
+	 employeeList.Add(new ContractualEmployee());
+	 employeeList.Add(new CasualEmployee());
+	 foreach (Employee e in employeeList)
+	 {
+		 e.GetEmployeeDetails(1245);
+	 }
      
      
 Solutions
