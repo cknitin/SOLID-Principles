@@ -86,37 +86,37 @@ in other words that a derived class must be substitutable for its base class
 
 Problem
 
-     	 public class IReportGeneration
-         {
-             public virtual void GenerateReport(Employee em)
-             {
-                 // From base
-             }
-         }
+	public class IReportGeneration
+        {
+        	public virtual void GenerateReport(Employee em)
+             	{
+                	 // From base
+             	}
+        }
          
-	 public class CrystalReportGeneraion : IReportGeneration
-         {
-             public override void GenerateReport(Employee em)
-             {
-                 // Generate crystal report.
-             }
-         }
+	public class CrystalReportGeneraion : IReportGeneration
+        {
+        	public override void GenerateReport(Employee em)
+             	{
+                	 // Generate crystal report.
+             	}
+       }
          
-	 public class PDFReportGeneraion : IReportGeneration
-         {
-             public override void GenerateReport(Employee em)
-             {
-                 // Generate PDF report.
-             }
-         }		
+       public class PDFReportGeneraion : IReportGeneration
+       {
+       		public override void GenerateReport(Employee em)
+             	{
+                	 // Generate PDF report.
+             	}
+      }		
      
-	 List<Employee> employeeList = new List<Employee>();
-	 employeeList.Add(new ContractualEmployee());
-	 employeeList.Add(new CasualEmployee());
-	 foreach (Employee e in employeeList)
-	 {
-		 e.GetEmployeeDetails(1245);
-	 }
+     List<Employee> employeeList = new List<Employee>();
+     employeeList.Add(new ContractualEmployee());
+     employeeList.Add(new CasualEmployee());
+     foreach (Employee e in employeeList)
+     {
+     	e.GetEmployeeDetails(1245);
+     }
      
      
 Solutions
